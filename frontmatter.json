@@ -42,6 +42,11 @@
           "title": "Categories",
           "name": "categories",
           "type": "categories"
+        },
+        {
+          "title": "layout",
+          "name": "layout",
+          "type": "string"
         }
       ]
     }
@@ -59,5 +64,6 @@
       "path": "[[workspace]]/_posts"
     }
   ],
-  "frontMatter.git.enabled": false
+  "frontMatter.git.enabled": false,
+  "frontMatter.framework.startCommand": "bundle exec jekyll serve --livereload --drafts"
 }
