@@ -26,9 +26,9 @@ it('renders successfully', function () {
 });
 ```
 
-Je test en local, tout fonctionne.  
-J'ajoute du code dans mon composant, je test, ça fonctionne.  
-Je pousse sur github, où une action va me lancer mes tests, et là... erreur !
+Je teste en local, tout fonctionne.  
+J'ajoute du code dans mon composant, je teste, ça fonctionne.  
+Je pousse sur github, où une action va lancer mes tests, et là... erreur !
 
 Après une rapide recherche, je trouve le coupable, la configuration de la CI
 
@@ -36,24 +36,24 @@ Après une rapide recherche, je trouve le coupable, la configuration de la CI
 
 Une CI (*Continuous Integration*, intégration continue en bon français) représente tout le processus d'automatisation des tests, de la mise en forme, des vérifications du code qu'un développeur va produire.
 
-Une bonne CI à différents buts :
-- **homogénéiser** le code, via des formatteurs tel que [Pint](https://github.com/laravel/pint) (pour php) ou [Prettier](https://prettier.io/) (pour plein de langage)
-- **améliorer** la qualité du code via des linters tel que [PhpStan](https://phpstan.org/) (pour php) ou [EsLint](https://eslint.org/) (Ts/Js)
-- **valider** des tests unitaires / tests d'intégrations via des testeurs tel que [Pest](https://pestphp.com/)
+Une bonne CI a différents buts :
+- **homogénéiser** le code, via des formateurs tels que [Pint](https://github.com/laravel/pint) (pour php) ou [Prettier](https://prettier.io/) (pour plein de langages)
+- **améliorer** la qualité du code via des linters tels que [PhpStan](https://phpstan.org/) (pour php) ou [EsLint](https://eslint.org/) (Ts/Js)
+- **valider** des tests unitaires / tests d'intégration via des testeurs tels que [Pest](https://pestphp.com/)
 
-## Pourquoi les tests n'ont pas fonctionnés ?
+## Pourquoi les tests n'ont pas fonctionné ?
 
 Le composant, dans son initialisation, éxecute une requête SQL.  
-Et c'était la première requête exécutée dans mes test *(c'est le début du projet...)*  
+Et c'était la première requête exécutée dans mes tests *(c'est le début du projet...)*  
 Erreur donc, car la requête plantait.
 
 Et elle plantait car il n'y avait pas de service pour exécuter la requête !
 
-*Une autre erreur aussi, c'est que pour un tel test, une séparation composant / requête devrait être faite, je reviendrais dessus un autre jour*
+*Une autre erreur aussi, c'est que pour un tel test, une séparation composant / requête devrait être faite, je reviendrai dessus un autre jour*
 
 ## Solution
 
-J'ai donc configurer un service dans les actions github pour que les tests puissent s'exécuter.  
+J'ai donc configuré un service dans les actions github pour que les tests puissent s'exécuter.  
 La configuration de mon action ressemble donc à ceci :
 
 ```yaml
@@ -88,7 +88,7 @@ jobs:
           --health-retries=3{% endraw %}
 ```
 
-Avec ceci, une base de donnée MySql est lancée sur le port **3306**, avec une base nommée **testing**, pour un utilisateur **testing** et un mot de passe **testing** (il y a comme un truc redondant, peut-être même sporadique...)
+Avec ceci, une base de données MySql est lancée sur le port **3306**, avec une base nommée **testing**, pour un utilisateur **testing** et un mot de passe **testing** (il y a comme un truc redondant, peut-être même sporadique...)
 
 Dans mon action, je n'ai plus qu'à lancer les tests :
 ```yaml
